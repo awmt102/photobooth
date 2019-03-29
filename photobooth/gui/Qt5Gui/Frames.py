@@ -578,6 +578,11 @@ class Settings(QtWidgets.QFrame):
         count_time.setValue(self._cfg.getInt('Photobooth', 'countdown_time'))
         self.add('Photobooth', 'countdown_time', count_time)
 
+        inter_time = QtWidgets.QSpinBox()
+        inter_time.setRange(0, 1000)
+        inter_time.setValue(self._cfg.getInt('Photobooth', 'intershot_time'))
+        self.add('Photobooth', 'intershot_time', inter_time)
+
         displ_time = QtWidgets.QSpinBox()
         displ_time.setRange(0, 1000)
         displ_time.setValue(self._cfg.getInt('Photobooth', 'display_time'))
@@ -597,6 +602,7 @@ class Settings(QtWidgets.QFrame):
         layout.addRow(_('Show preview during countdown:'), preview)
         layout.addRow(_('Greeter time before countdown [s]:'), greet_time)
         layout.addRow(_('Countdown time [s]:'), count_time)
+        layout.addRow(_('Inter shot time [s]:'), inter_time)
         layout.addRow(_('Picture display time [s]:'), displ_time)
         layout.addRow(_('Postprocess timeout [s]:'), postproc_time)
         layout.addRow(_('Overwrite displayed error message:'), err_msg)

@@ -287,8 +287,8 @@ class PyQt5MainWindow(QtWidgets.QMainWindow):
 
         reply = QtWidgets.QMessageBox.question(self, _('Confirmation'),
                                                _('Quit Photobooth?'),
-                                               QtWidgets.QMessageBox.Yes |
-                                               QtWidgets.QMessageBox.No,
+                                               QtWidgets.QMessageBox.No |
+                                               QtWidgets.QMessageBox.Yes,
                                                QtWidgets.QMessageBox.No)
 
         if reply == QtWidgets.QMessageBox.Yes:
