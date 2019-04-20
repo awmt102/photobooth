@@ -155,7 +155,8 @@ class Camera:
 
         if state.num_picture < self._pic_dims.totalNumPictures:
             self._comm.send(Workers.MASTER,
-                            StateMachine.CameraEvent('countdown'))
+                             StateMachine.CameraEvent('followupcountdown'))
+      #                      StateMachine.CameraEvent('countdown'))
         else:
             self._comm.send(Workers.MASTER,
                             StateMachine.CameraEvent('assemble'))
