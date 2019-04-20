@@ -296,6 +296,7 @@ class PyQt5MainWindow(QtWidgets.QMainWindow):
         else:
             e.ignore()
 
+
     def keyPressEvent(self, event):
 
         self._handle_key(event)
