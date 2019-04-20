@@ -418,7 +418,7 @@ class CaptureState(State):
             context.state = CountdownState(self.num_picture + 1)
         elif isinstance(event, CameraEvent) and event.name == 'followupcountdown':
             context.state = CountdownState(self.num_picture + 1)
-            logging.debug("Follow up shot " + str(self.num_picture + 1))
+            logging.info("Follow up shot " + str(self.num_picture + 1))
         elif isinstance(event, CameraEvent) and event.name == 'assemble':
             context.state = AssembleState()
         else:
