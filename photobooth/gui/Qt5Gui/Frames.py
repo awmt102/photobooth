@@ -875,6 +875,8 @@ class Settings(QtWidgets.QFrame):
                       str(self.get('Photobooth', 'greeter_time').text()))
         self._cfg.set('Photobooth', 'countdown_time',
                       str(self.get('Photobooth', 'countdown_time').text()))
+        self._cfg.set('Photobooth', 'intershot_time',
+                      str(self.get('Photobooth', 'intershot_time').text()))
         self._cfg.set('Photobooth', 'display_time',
                       str(self.get('Photobooth', 'display_time').text()))
         self._cfg.set('Photobooth', 'postprocess_time',

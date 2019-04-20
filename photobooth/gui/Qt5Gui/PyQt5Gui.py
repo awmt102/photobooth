@@ -193,10 +193,10 @@ class PyQt5Gui(GuiSkeleton):
 
         if state.num_picture == 1:
             countdown_time = self._cfg.getInt('Photobooth', 'countdown_time')
-            logging.info("normal countdown")
+            logging.debug("normal countdown")
         else:
             countdown_time = self._cfg.getInt('Photobooth', 'intershot_time')
-            logging.info("intershot countdown")
+            logging.debug("intershot countdown")
 
         self._setWidget(Frames.CountdownMessage(
             countdown_time,
