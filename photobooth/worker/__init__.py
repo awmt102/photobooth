@@ -78,7 +78,7 @@ class Worker:
         self._picture_tasks = []
 
         # PictureSaver for single shots
-        path = os.path.join(config.get('Storage', 'basedir'),
+        path = os.path.join(config.get('Storage', 'basedir'),'originals',
                             config.get('Storage', 'basename') + '_shot_')
         basename = strftime(path, localtime())
         self._picture_tasks.append(PictureSaver(basename))
