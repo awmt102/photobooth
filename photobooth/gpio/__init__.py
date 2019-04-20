@@ -37,6 +37,7 @@ class Gpio:
         self._is_trigger = False
         self._is_enabled = config.getBool('Gpio', 'enable')
         self._countdown_time = config.getInt('Photobooth', 'countdown_time')
+        self._postprocess_time = config.getInt('Photobooth', 'postprocess_time')
 
         self.initGpio(config)
 
@@ -86,7 +87,10 @@ class Gpio:
         elif isinstance(state, StateMachine.ReviewState):
             self.showReview()
         elif isinstance(state, StateMachine.PostprocessState):
-            self.showPostprocess()
+            if self._postprocess_time > 0:
+                self.showPostprocess()
+            else:
+                self.showIdle()
         elif isinstance(state, StateMachine.TeardownState):
             self.teardown(state)
 
