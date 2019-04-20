@@ -87,11 +87,7 @@ class Gpio:
         elif isinstance(state, StateMachine.ReviewState):
             self.showReview()
         elif isinstance(state, StateMachine.PostprocessState):
-            logging.info("postprocess time=" + str(self._postprocess_time))
-            if self._postprocess_time is not 0:
-                self.showPostprocess()
-            else:
-                self.showIdle()
+            self.showIdle()
         elif isinstance(state, StateMachine.TeardownState):
             self.teardown(state)
 

@@ -236,10 +236,13 @@ class PyQt5Gui(GuiSkeleton):
         tasks = self._postprocess.get(self._picture)
         postproc_t = self._cfg.getInt('Photobooth', 'postprocess_time')
 
-        Frames.PostprocessMessage(
-            self._gui.centralWidget(), tasks, self._worker,
-            lambda: self._comm.send(Workers.MASTER, GuiEvent('idle')),
-            postproc_t * 1000)
+        if postproc_t > 0:
+            Frames.PostprocessMessage(
+                self._gui.centralWidget(), tasks, self._worker,
+                lambda: self._comm.send(Workers.MASTER, GuiEvent('idle')),
+                postproc_t * 1000)
+        else:
+            self._comm.send(Workers.MASTER, GuiEvent('idle'))
 
     def _handleKeypressEvent(self, event):
 
