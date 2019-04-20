@@ -154,9 +154,13 @@ class Camera:
                             StateMachine.CameraEvent('capture', byte_data))
 
         if state.num_picture < self._pic_dims.totalNumPictures:
-            self._comm.send(Workers.MASTER,
-                             StateMachine.CameraEvent('followupcountdown'))
-      #                      StateMachine.CameraEvent('countdown'))
+            if self._cfg.getInt('Photobooth', 'countdown_time') == 0:
+                self._comm.send(Workers.MASTER,
+                                StateMachine.CameraEvent('capture', byte_data))
+            else:
+                self._comm.send(Workers.MASTER,
+                                StateMachine.CameraEvent('countdown'))
+      #                         StateMachine.CameraEvent('followupcountdown'))
         else:
             self._comm.send(Workers.MASTER,
                             StateMachine.CameraEvent('assemble'))
