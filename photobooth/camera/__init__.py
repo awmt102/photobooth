@@ -155,8 +155,8 @@ class Camera:
 
         if state.num_picture < self._pic_dims.totalNumPictures:
             if self._cfg.getInt('Photobooth', 'intershot_time') == 0:
-                self._comm.send(Workers.MASTER,
-                                StateMachine.CameraEvent('capture', byte_data))
+                self._comm.send(Workers.MASTER, StateMachine.GuiEvent('capture'))
+                            #    StateMachine.CameraEvent('capture', byte_data))
             else:
                 self._comm.send(Workers.MASTER,
                                 StateMachine.CameraEvent('countdown'))
