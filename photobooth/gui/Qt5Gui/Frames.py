@@ -598,6 +598,15 @@ class Settings(QtWidgets.QFrame):
             self._cfg.get('Photobooth', 'overwrite_error_message'))
         self.add('Photobooth', 'overwrite_error_message', err_msg)
 
+        screensaver = QtWidgets.QCheckBox()
+        screensaver.setChecked(self._cfg.getBool('Photobooth', 'screensaver'))
+        self.add('Photobooth', 'screensaver', screensaver)
+
+        screensaver_time = QtWidgets.QSpinBox()
+        screensaver_time.setRange(0, 3600)
+        screensaver_time.setValue(self._cfg.getInt('Photobooth', 'screensaver_time'))
+        self.add('Photobooth', 'screensaver_time', screensaver_time)
+
         layout = QtWidgets.QFormLayout()
         layout.addRow(_('Show preview during countdown:'), preview)
         layout.addRow(_('Greeter time before countdown [s]:'), greet_time)
@@ -606,6 +615,8 @@ class Settings(QtWidgets.QFrame):
         layout.addRow(_('Picture display time [s]:'), displ_time)
         layout.addRow(_('Postprocess timeout [s]:'), postproc_time)
         layout.addRow(_('Overwrite displayed error message:'), err_msg)
+        layout.addRow(_('Enable screensaver:'), screensaver)
+        layout.addRow(_('Screensaver activation time [s]:'), screensaver_time)
 
         widget = QtWidgets.QWidget()
         widget.setLayout(layout)
@@ -883,6 +894,10 @@ class Settings(QtWidgets.QFrame):
                       str(self.get('Photobooth', 'postprocess_time').text()))
         self._cfg.set('Photobooth', 'overwrite_error_message',
                       self.get('Photobooth', 'overwrite_error_message').text())
+        self._cfg.set('Photobooth', 'screensaver',
+                      self.get('Photobooth', 'screensaver').text())
+        self._cfg.set('Photobooth', 'screensaver_time',
+                      self.get('Photobooth', 'screensaver_time').text())
 
         self._cfg.set('Camera', 'module',
                       camera.modules[self.get('Camera',
