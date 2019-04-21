@@ -6,6 +6,7 @@ import sched
 import time
 import logging
 import subprocess
+from threading import Timer
 
 class ScreensaverDummy():
     def initialiseTimer(self):
@@ -29,15 +30,16 @@ class Screensaver(ScreensaverDummy):
         self.directory = directory
         self.idletime = idletime
         self.process = ""
-        self.scheduler = sched.scheduler(time.time, time.sleep)
+        #self.scheduler = sched.scheduler(time.time, time.sleep)
+        self.scheduler = ""
 
     def initialiseTimer(self):
 
         logging.debug("Initialising screensaver")
-        self.scheduler.enter(int(self.idletime), 1, self.show, ())
-
-
-        self.scheduler.run()
+        #self.scheduler.enter(int(self.idletime), 1, self.show, ())
+        #self.scheduler.run()
+        self.scheduler = Timer(int(self.idletime), self.show,())
+        self.scheduler.start()
 
     def resetTimer(self):
 
@@ -68,4 +70,5 @@ class Screensaver(ScreensaverDummy):
 
     def disable(self):
         logging.debug("Closing all screensaver scheduled events")
-        list(map(self.scheduler.cancel, self.scheduler.queue))
+        #list(map(self.scheduler.cancel, self.scheduler.queue))
+        self.scheduler.cancel()

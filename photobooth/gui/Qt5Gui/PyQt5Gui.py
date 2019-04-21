@@ -70,15 +70,14 @@ class PyQt5Gui(GuiSkeleton):
         with open(os.path.join(os.path.dirname(__file__), filename), 'r') as f:
             stylesheet = f.read()
 
-        # Create screensaver
         if self._cfg.getBool('Photobooth', 'screensaver'):
             path = os.path.join(os.getcwd(),
-                                self._cfg(get('Storage', 'basedir')))
+                                self._cfg.get('Storage', 'basedir'))
             self.screensaver = Screensaver(
                 self._cfg.getInt('Photobooth', 'screensaver_time'), path)
         else:
             self.screensaver = ScreensaverDummy()
-            
+
         # Create application and main window
         self._app = QtWidgets.QApplication(argv)
         self._app.setStyleSheet(stylesheet)
@@ -195,7 +194,6 @@ class PyQt5Gui(GuiSkeleton):
 
         self._enableEscape()
         self._disableTrigger()
-        self._closeScreensaver()
 
         num_pic = (self._cfg.getInt('Picture', 'num_x'),
                    self._cfg.getInt('Picture', 'num_y'))
