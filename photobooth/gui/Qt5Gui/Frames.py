@@ -895,7 +895,7 @@ class Settings(QtWidgets.QFrame):
         self._cfg.set('Photobooth', 'overwrite_error_message',
                       self.get('Photobooth', 'overwrite_error_message').text())
         self._cfg.set('Photobooth', 'screensaver',
-                      self.get('Photobooth', 'screensaver').text())
+                      str(self.get('Photobooth', 'screensaver').isChecked()))
         self._cfg.set('Photobooth', 'screensaver_time',
                       self.get('Photobooth', 'screensaver_time').text())
 
