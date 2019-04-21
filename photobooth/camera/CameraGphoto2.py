@@ -53,7 +53,7 @@ class CameraGphoto2(CameraInterface):
             #     self._autopoweroff)
             self._cap.set_config(config)
         except BaseException as e:
-            logging.warn('Error while changing camera settings: {}.'.format(e))
+            logging.warn('Error while changing camera settings (cleanup): {}.'.format(e))
 
         self._cap.exit(self._ctxt)
 
@@ -96,7 +96,7 @@ class CameraGphoto2(CameraInterface):
             # apply configuration and print current config
             self._cap.set_config(config)
         except BaseException as e:
-            logging.warn('Error while changing camera settings: {}.'.format(e))
+            logging.warn('Error while changing camera settings (setup): {}.'.format(e))
 
         self._printConfig(self._cap.get_config())
 
