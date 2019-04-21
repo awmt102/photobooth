@@ -136,21 +136,22 @@ class CameraGphoto2(CameraInterface):
 
     def setActive(self):
 
-        try:
-            config = self._cap.get_config()
-            config.get_child_by_name('output').set_value('PC')
-            self._cap.set_config(config)
-        except BaseException as e:
-            logging.warn('Error while setting camera output to active: {}.'.format(e))
+        logging.warn("Setting active disabled")
+        # try:
+        #     config = self._cap.get_config()
+        #     config.get_child_by_name('output').set_value('PC')
+        #     self._cap.set_config(config)
+        # except BaseException as e:
+        #     logging.warn('Error while setting camera output to active: {}.'.format(e))
 
     def setIdle(self):
-
-        try:
-            config = self._cap.get_config()
-            config.get_child_by_name('output').set_value('Off')
-            self._cap.set_config(config)
-        except BaseException as e:
-            logging.warn('Error while setting camera output to idle: {}.'.format(e))
+        logging.warn("Setting idle disabled")
+        # try:
+        #     config = self._cap.get_config()
+        #     config.get_child_by_name('output').set_value('Off')
+        #     self._cap.set_config(config)
+        # except BaseException as e:
+        #     logging.warn('Error while setting camera output to idle: {}.'.format(e))
 
     def getPreview(self):
 

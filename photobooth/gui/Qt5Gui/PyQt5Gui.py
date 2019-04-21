@@ -28,6 +28,7 @@ from PIL import Image, ImageQt
 
 from ...StateMachine import GuiEvent, TeardownEvent
 from ...Threading import Workers
+from ...screensaver import Screensaver, ScreensaverDummy
 
 from ..GuiSkeleton import GuiSkeleton
 from ..GuiPostprocessor import GuiPostprocessor
@@ -36,7 +37,6 @@ from . import styles
 from . import Frames
 from . import Receiver
 from . import Worker
-
 
 class PyQt5Gui(GuiSkeleton):
 
@@ -52,6 +52,14 @@ class PyQt5Gui(GuiSkeleton):
 
         self._picture = None
         self._postprocess = GuiPostprocessor(self._cfg)
+
+        if self._cfg.getBool('Photobooth', 'screensaver'):
+            path = os.path.join(os.getcwd(),
+                                self._cfg(get('Storage', 'basedir')))
+            self.screensaver = Screensaver(
+                self._cfg.getInt('Photobooth', 'screensaver_time'), path)
+        else:
+            self.screensaver = ScreensaverDummy()
 
     def run(self):
 
@@ -124,6 +132,9 @@ class PyQt5Gui(GuiSkeleton):
         if state.target == TeardownEvent.WELCOME:
             self._comm.send(Workers.MASTER, GuiEvent('welcome'))
         elif state.target in (TeardownEvent.EXIT, TeardownEvent.RESTART):
+            # Destroy the screensaver
+            self.screensaver.disable()
+
             self._worker.put(None)
             self._app.exit(0)
 
@@ -167,6 +178,9 @@ class PyQt5Gui(GuiSkeleton):
 
     def showIdle(self, state):
 
+        # Reset the screensaver timer when we enter the Idle screen
+        self.screensaver.resetTimer()
+
         self._enableEscape()
         self._enableTrigger()
         self._setWidget(Frames.IdleMessage(
@@ -174,8 +188,12 @@ class PyQt5Gui(GuiSkeleton):
 
     def showGreeter(self, state):
 
+        # Close the screensaver when we enter the greeter (i.e. the button has been pressed
+        self.screensaver.close()
+
         self._enableEscape()
         self._disableTrigger()
+        self._closeScreensaver()
 
         num_pic = (self._cfg.getInt('Picture', 'num_x'),
                    self._cfg.getInt('Picture', 'num_y'))
