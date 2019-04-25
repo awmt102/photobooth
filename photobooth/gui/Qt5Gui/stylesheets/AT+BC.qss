@@ -8,7 +8,7 @@ QWidget {
 }
 
 QMainWindow {
-    background: #ffffff qlineargradient(x1:0 y1:1, x2:1, y2:0, stop:0 rgba(255,165,150,255), stop:1 rgba(0,228,255,112));
+    background: #ffffff;
     color: #eeeeee;
 }
 
